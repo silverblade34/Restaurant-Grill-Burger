@@ -5,6 +5,8 @@ package Utils;
  * @author Michel
  */
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.Driver;
 public class conexionDB {
 
      public static Connection getConexion(){

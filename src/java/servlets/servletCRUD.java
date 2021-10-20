@@ -58,14 +58,13 @@ public class servletCRUD extends HttpServlet {
         processRequest(request, response);
 
         String op = request.getParameter("op");
-        String opt = request.getParameter("opt");
         if (op.equals("listar")) {
             try {
                 PreparedStatement psta = conexionDB.getConexion().prepareStatement("select *from producto");
                 ResultSet rs = psta.executeQuery();
                 ArrayList<productosBeans> lista = new ArrayList<>();
                 while (rs.next()) {
-                    productosBeans pro = new productosBeans(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5),rs.getString(6));
+                    productosBeans pro = new productosBeans(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5),rs.getString(6));
                     lista.add(pro);
                 }
                 request.setAttribute("lista", lista);
@@ -81,7 +80,7 @@ public class servletCRUD extends HttpServlet {
                ResultSet rs = psta.executeQuery();
                 ArrayList<productosBeans> lista = new ArrayList<>();
                 while (rs.next()) {
-                   productosBeans pro = new productosBeans(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5),rs.getString(6));
+                   productosBeans pro = new productosBeans(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5),rs.getString(6));
                     lista.add(pro);
                 }
                 conexionDB.getConexion().close();
@@ -96,7 +95,7 @@ public class servletCRUD extends HttpServlet {
                 ResultSet rs = psta.executeQuery();
                 ArrayList<productosBeans> lista = new ArrayList<>();
                 while (rs.next()) {
-                    productosBeans pro = new productosBeans(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5),rs.getString(6));
+                    productosBeans pro = new productosBeans(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5),rs.getString(6));
                     lista.add(pro);
                 }
                 request.setAttribute("lista", lista);
@@ -110,7 +109,7 @@ public class servletCRUD extends HttpServlet {
                 PreparedStatement psta = conexionDB.getConexion().prepareStatement("delete from producto where id_producto=?");
                 psta.setString(1, cod);
                 psta.executeUpdate();
-                request.getRequestDispatcher("servletCRUD?op=listar").forward(request, response);
+                request.getRequestDispatcher("servletCRUD?op=listarAdmi").forward(request, response);
             } catch (Exception e) {
                 System.out.println("Error" + e);
             }
@@ -118,12 +117,13 @@ public class servletCRUD extends HttpServlet {
             try {
                 System.out.println("entra");
                 PreparedStatement psta = conexionDB.getConexion().prepareStatement("insert into producto values(?,?,?,?,?,?)");
-                ResultSet rs = psta.executeQuery();
+                int ID= Integer.parseInt(request.getParameter("idProducto"));
                 String nombre = request.getParameter("nombreProducto");
                 String descripcion = request.getParameter("descripcionProducto");
                 double precio = Double.parseDouble(request.getParameter("precioProducto"));
                 int categoria = Integer.parseInt(request.getParameter("categoriaProducto"));
                 String imagen = request.getParameter("rutaImagen");
+                psta.setInt(1,ID);
                 psta.setString(2, nombre);
                 psta.setString(3, descripcion);
                 psta.setInt(4, categoria);
@@ -154,6 +154,28 @@ public class servletCRUD extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        int idP=Integer.parseInt(request.getParameter("idProducto"));
+        String nomP=request.getParameter("nombreProducto");
+        String descP=request.getParameter("descripcionProducto");
+        int catP=Integer.parseInt(request.getParameter("categoriaProducto"));
+        double precioP=Double.parseDouble(request.getParameter("precioProducto"));
+        String rutaP=request.getParameter("rutaImagen");
+        
+        try{
+           PreparedStatement psta=conexionDB.getConexion()
+                   .prepareStatement("insert into producto values(?,?,?,?,?,?)");
+           psta.setInt(1, idP);
+           psta.setString(2,nomP);
+           psta.setString(3,descP);
+           psta.setInt(4, catP);
+           psta.setDouble(5,precioP);
+           psta.setString(6,rutaP);
+          psta.executeUpdate();
+          request.getRequestDispatcher("administrador/agregarProductos.jsp").forward(request, response);
+        }catch(Exception e){
+        
+        }
     }
 
     /**

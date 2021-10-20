@@ -1,0 +1,65 @@
+///1. Patron de colores
+
+$principal:#F44336;
+$secundario: #27282d;
+$primario:#f2b648; 
+$fuente:'Gemunu Libre', sans-serif;
+/// 2. Modificando variables
+$primary: $primario;
+$success:$principal;
+$secondary:$secundario;
+$font-family-sans-serif:$fuente;
+/// 3. Agregando estilos
+
+.logo-footer{
+    width: 200px;
+}
+.card-img-top{
+    height: 250px;
+}
+.card-img-top-anime{
+    height: 290px;
+}
+.info-cuerpo{
+    margin: 30px 15px 50px 15px;
+}
+.enlaces-cuerpo{
+    text-decoration: none;
+    text-transform: none;
+}
+.link-navbar:hover{
+    background-color:$primario;
+    border-radius: 3px;
+}
+.nav-item{
+    margin-right: 10px;
+    font-size: 20px;
+}
+.card-hover{
+    transition: transform .4s;
+}
+.card-hover:hover{
+    transform: scale(1.03);
+}
+.enlaces{
+    text-decoration: none;
+}
+.enlaces:hover{
+    color: white;
+}
+.enlaces-footer{
+    text-decoration: none;
+    color: white;
+}
+.enlaces-footer:hover{
+  color:white;
+}
+@media(max-width:825px){
+    .carousel-inner img{
+          height: 300px;
+    }
+    footer{
+        padding-bottom: 60px;
+    }
+}
+@import "lib/Boostrap/scss/bootstrap.scss";

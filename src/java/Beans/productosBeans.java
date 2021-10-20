@@ -10,12 +10,13 @@ package Beans;
  * @author Michel
  */
 public class productosBeans {
-    private String idProducto,nombreProducto,descripcion;
+    private String nombreProducto,descripcion;
+    private int idProducto;
     private int cetegoria;
     private double precio;
     private String imagen;
 
-    public productosBeans(String idProducto, String nombreProducto, String descripcion, int cetegoria, double precio,String imagen) {
+    public productosBeans(int idProducto, String nombreProducto, String descripcion, int cetegoria, double precio,String imagen) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
@@ -32,11 +33,11 @@ public class productosBeans {
         this.imagen = imagen;
     }
 
-    public String getIdProducto() {
+    public int getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(String idProducto) {
+    public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
     }
 
